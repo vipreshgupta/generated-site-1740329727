@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delhi Shoe Store</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #f8f8f8;
+            --secondary-color: #333;
+            --accent-color: #ff6f61;
+            --text-color: #333;
+            --background-color: #fff;
+            --font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark Theme Styles */
+        body.dark-mode {
+            --primary-color: #222;
+            --secondary-color: #f8f8f8;
+            --accent-color: #ff8c7f;
+            --text-color: #f8f8f8;
+            --background-color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        #search-bar {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        #dark-mode-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        #cart-icon {
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            color: var(--text-color);
+        }
+
+        #cart-count {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+
+        /* Hero Section Styles */
+        #hero {
+            text-align: center;
+            padding: 50px 0;
+            background-color: var(--background-color);
+        }
+
+        #hero img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .cta-button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #e65c4f;
+        }
+
+        /* Product Catalog Styles */
+        #product-catalog {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        #filters {
+            width: 20%;
+            padding-right: 20px;
+        }
+
+        #products-grid {
+            width: 78%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            background-color: var(--background-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            margin: 10px 0;
+            color: var(--text-color);
+        }
+
+        .product-card p {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .add-to-cart {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #e65c4f;
+        }
+
+        /* Cart Overview Styles */
+        #cart-overview {
+            padding: 20px;
+            background-color: var(--background-color);
+            border-top: 1px solid #ddd;
+        }
+
+        /* Customer Reviews Styles */
+        #customer-reviews {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .reviews-received, .reviews-post {
+            width: 48%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: var(--background-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .reviews-received h2, .reviews-post h2 {
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .reviews-post textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .reviews-post button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .reviews-post button:hover {
+            background-color: #e65c4f;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border-top: 1px solid #ddd;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 10px;
+            }
+
+            nav ul li {
+                margin: 5px 10px;
+            }
+
+            #product-catalog {
+                flex-direction: column;
+            }
+
+            #filters {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            #products-grid {
+                width: 100%;
+            }
+
+            #customer-reviews {
+                flex-direction: column;
+            }
+
+            .reviews-received, .reviews-post {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation and Dark Theme Toggle -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#men">Men</a></li>
+                <li><a href="#women">Women</a></li>
+                <li><a href="#kids">Kids</a></li>
+                <li><a href="#new-arrivals">New Arrivals</a></li>
+                <li><a href="#sales">Sales</a></li>
+            </ul>
+            <input type="text" placeholder="Search..." id="search-bar">
+            <button id="dark-mode-toggle">🌙</button>
+            <div id="cart-icon">🛒<span id="cart-count">0</span></div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Featured Shoe Collection">
+        <button class="cta-button">Shop Now</button>
+    </section>
+
+    <!-- Product Catalog -->
+    <section id="product-catalog">
+        <!-- Filters and Sorting Options -->
+        <aside id="filters">
+            <!-- Filter options go here -->
+        </aside>
+        <div id="products-grid">
+            <!-- Example Product Card -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Product Name">
+                <h3>Product Name</h3>
+                <p>Price: ₹XXXX</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <!-- More product cards -->
+             <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" alt="Product Name">
+                <h3>Product Name</h3>
+                <p>Price: ₹XXXX</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+             <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Product Name">
+                <h3>Product Name</h3>
+                <p>Price: ₹XXXX</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Overview -->
+    <section id="cart-overview">
+        <!-- Cart details go here -->
+    </section>
+
+    <!-- Customer Reviews -->
+    <section id="customer-reviews">
+        <div class="reviews-received">
+            <h2>Customer Reviews</h2>
+            <!-- Existing reviews -->
+        </div>
+        <div class="reviews-post">
+            <h2>Leave a Review</h2>
+            <form>
+                <textarea placeholder="Your review"></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Delhi Shoe Store. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle Functionality
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Add to Cart Functionality
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const cartCount = document.getElementById('cart-count');
+        let itemCount = 0;
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                itemCount++;
+                cartCount.textContent = itemCount;
+            });
+        });
+    </script>
+</body>
+</html>
